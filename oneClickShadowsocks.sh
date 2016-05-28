@@ -11,11 +11,17 @@ timeout=600
 encrypt_method="aes-256-cfb"
 
 
+echo ---sudo apt-get update---
 sudo apt-get update
+echo ---sudo apt-get upgrade---
 sudo apt-get upgrade
-sudo apt-get python-gevent
-sudo apt-get python-pip
+echo ---sudo apt-get install python-gevent---
+sudo apt-get install python-gevent
+echo ---sudo apt-get install python-pip---
+sudo apt-get install python-pip
+echo ---sudo pip install shadowsocks---
 sudo pip install shadowsocks
+echo ---sudo apt-get install python-m2crypto---
 sudo apt-get install python-m2crypto
 
 
