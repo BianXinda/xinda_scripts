@@ -20,7 +20,7 @@ sudo apt-get install python-gevent
 echo ---sudo apt-get install python-pip---
 sudo apt-get install python-pip
 echo ---sudo pip install shadowsocks---
-set LC_ALL=C
+export LC_ALL=C # To avoid pip install locale error
 sudo pip install shadowsocks
 echo ---sudo apt-get install python-m2crypto---
 sudo apt-get install python-m2crypto
