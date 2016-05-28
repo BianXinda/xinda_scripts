@@ -16,11 +16,11 @@ sudo apt-get upgrade
 sudo apt-get python-gevent
 sudo apt-get python-pip
 sudo pip install shadowsocks
-sudo apt–get install python–m2crypto
+sudo apt-get install python-m2crypto
 
 
 echo -e "{\n  \"server\":\"$server_ip\",\n  \"server_port\":$server_port,\n  \"local_port\":$local_port,\n  \"password\":\"$password\",\n  \"timeout\":$timeout,\n  \"method\":\"$encrypt_method\"\n}" > ~/config.json
 
-nohup ssserver –c ~/config.json  > ~/log &
+nohup ssserver -c ~/config.json  > ~/log &
 
 sudo echo /usr/local/bin/ssserver -c ~/config.json >> /etc/rc.local
