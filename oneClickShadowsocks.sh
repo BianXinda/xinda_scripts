@@ -20,6 +20,7 @@ sudo apt-get install python-gevent
 echo ---sudo apt-get install python-pip---
 sudo apt-get install python-pip
 echo ---sudo pip install shadowsocks---
+set LC_ALL=C
 sudo pip install shadowsocks
 echo ---sudo apt-get install python-m2crypto---
 sudo apt-get install python-m2crypto
