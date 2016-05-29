@@ -16,12 +16,12 @@ sudo echo ms-dns 8.8.4.4 >> /etc/ppp/pptpd-options
 
 user1="test"
 password1="123456"
-sudo echo "$user1    *    $password1    *" >> /etc/ppp/chap-secrets
+sudo echo "$user1 * $password1 *" >> /etc/ppp/chap-secrets
 
-/etc/init.d/pptpd restart
+sudo /etc/init.d/pptpd restart
 
 # IPv4 forwarding
-sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf
+sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf #use sed instead
 sudo sysctl -p
 # Use 192.168.0 for its PPTP subnet. The second rule adjusts the MTU size
 sudo echo iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE >> /etc/rc.local
