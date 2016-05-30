@@ -10,3 +10,4 @@ You need to modify the script with your server address, and remove exit line. Th
 ```bash
 bash oneClickShadowsocks.sh
 ```
+fefefe
