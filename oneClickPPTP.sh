@@ -1,4 +1,7 @@
 #!/bin/bash
+
+sudo sed -i "s/#precedence ::ffff:0:0\/96  100/precedence ::ffff:0:0\/96i  100/g" /etc/gai.conf
+
 echo ---sudo apt-get update---
 sudo apt-get update
 echo ---sudo apt-get upgrade---
@@ -23,8 +26,8 @@ sudo echo "$user1 pptpd $password1 *" >> /etc/ppp/chap-secrets
 sudo /etc/init.d/pptpd restart
 
 # IPv4 forwarding
-sudo sed "s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
-sudo sed "s/net.ipv4.ip_forward=0/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
+sudo sed -i "s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
+sudo sed -i "s/net.ipv4.ip_forward=0/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
 sudo sysctl -p
 
 # Use 192.168.0 for its PPTP subnet. The second rule adjusts the MTU size
