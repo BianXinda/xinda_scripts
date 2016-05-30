@@ -6,25 +6,36 @@ sudo apt-get upgrade
 echo ---sudo apt-get install pptpd---
 sudo apt-get install pptpd
 
-sudo echo localip 192.168.0.1 >> /etc/pptpd.conf
-sudo echo remoteip 192.168.0.100-200 >> /etc/pptpd.conf
+cat >> /etc/pptpd.conf <<EOF
+localip 192.168.0.1
+remoteip 192.168.0.100-200
+EOF
 
-sudo echo ms-dns 10.0.0.1 >> /etc/ppp/pptpd-options
-sudo echo ms-dns 10.0.0.2 >> /etc/ppp/pptpd-options
-sudo echo ms-dns 8.8.8.8 >> /etc/ppp/pptpd-options
-sudo echo ms-dns 8.8.4.4 >> /etc/ppp/pptpd-options
+cat >> /etc/ppp/pptpd-options <<EOF
+ms-dns 8.8.8.8
+ms-dns 8.8.4.4
+EOF
 
 user1="test"
 password1="123456"
-sudo echo "$user1 * $password1 *" >> /etc/ppp/chap-secrets
+sudo echo "$user1 pptpd $password1 *" >> /etc/ppp/chap-secrets
 
 sudo /etc/init.d/pptpd restart
 
 # IPv4 forwarding
-sudo echo net.ipv4.ip_forward=1 >> /etc/sysctl.conf #use sed instead
+sudo sed "s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
+sudo sed "s/net.ipv4.ip_forward=0/net.ipv4.ip_forward=1/g"  /etc/sysctl.conf
 sudo sysctl -p
+
 # Use 192.168.0 for its PPTP subnet. The second rule adjusts the MTU size
-sudo echo iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE >> /etc/rc.local
-sudo echo iptables -A FORWARD -p tcp --syn -s 192.168.0.0/24 -j TCPMSS --set-mss 1356 >> /etc/rc.local
+sudo iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE
+sudo iptables -A FORWARD -p tcp --syn -s 192.168.0.0/24 -j TCPMSS --set-mss 1356
+
+sudo sed "s/exit 0//g" /etc/rc.local
+cat >> /etc/rc.local <<EOF
+iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE
+iptables -A FORWARD -p tcp --syn -s 192.168.0.0/24 -j TCPMSS --set-mss 1356
+/etc/init.d/pptpd restart
+EOF
 
 #reboot to enable the setting
