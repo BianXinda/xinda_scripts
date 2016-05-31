@@ -1,6 +1,17 @@
 #!/bin/bash
 
-echo -e "Please setup:\n------\nYour server ip address\nYour server port (default 8080)\nYour local port(default 1080)\nYour password(default 888888)\nYour timeout value(default 600)\nYour encrypt method(default aes-256-cfb)\n------\nbefore you run this script."
+cat <<EOF
+Please setup:
+Your server ip address
+Your server port (default 8080)
+Your local port(default 1080)
+Your password(default 888888)
+Your timeout value(default 600)
+Your encrypt method(default aes-256-cfb)
+
+before you run this script.
+EOF
+
 exit #Remove this line when values are all setup
 
 server_ip="1.1.1.1" #At lease you need to change this value !
@@ -10,6 +21,7 @@ password=888888
 timeout=600
 encrypt_method="aes-256-cfb"
 
+sudo sed -i "s/#precedence ::ffff:0:0\/96  100/precedence ::ffff:0:0\/96i  100/g" /etc/gai.conf
 
 echo ---sudo apt-get update---
 sudo apt-get update
@@ -26,8 +38,17 @@ echo ---sudo apt-get install python-m2crypto---
 sudo apt-get install python-m2crypto
 
 
-echo -e "{\n  \"server\":\"$server_ip\",\n  \"server_port\":$server_port,\n  \"local_port\":$local_port,\n  \"password\":\"$password\",\n  \"timeout\":$timeout,\n  \"method\":\"$encrypt_method\"\n}" > ~/config.json
+cat >> ~/config.json <<EOF
+{  
+    "server":"$server_ip",
+    "server_port":$server_port,
+    "local_port":$local_port,
+    "password":"$password",
+    "timeout":$timeout,
+    "method":"$encrypt_method"
+}
+EOF
 
-nohup ssserver -c ~/config.json  > ~/log &
+sudo nohup ssserver -c ~/config.json  > ~/log &
 
 sudo echo /usr/local/bin/ssserver -c ~/config.json >> /etc/rc.local
