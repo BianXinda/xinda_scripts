@@ -3,14 +3,19 @@ Tested on Linode@Fremont, Ubuntu 16.04 LTS. Please first get the script:
 git clone https://github.com/BianXinda/xinda_scripts.git
 ```
 # PPTP setup
+
 * How to use
+
 You can add extra user and password to /etc/ppp/chap-secrets as format in the script. Then:
 ```bash
-bash oneClickShadowsocks.sh
+bash oneClickPPTP.sh
 ```
 
 # Shadowsocks setup
+
 * How to use
+
+First try to run the script:
 ```bash
 bash oneClickShadowsocks.sh
 ```
@@ -28,6 +33,8 @@ before you run this script.
 ```
 Then you need to modify the script with your server address, and remove the exit statement in the script. Then re-run the script.
 
-* FAQ
-Stuck when apt-get update:
+# FAQ
+
+* Stuck when apt-get update:
+
 Please refer to [solution](https://zach-adams.com/2015/01/apt-get-cant-connect-to-security-ubuntu-fix/) this guy provided. Thanks to him!
