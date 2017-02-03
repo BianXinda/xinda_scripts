@@ -3,7 +3,7 @@
 cat <<EOF
 Please setup:
 Your server ip address
-Your server port (default 8080)
+Your server port (default 8888)
 Your local port(default 1080)
 Your password(default 888888)
 Your timeout value(default 600)
@@ -14,8 +14,8 @@ EOF
 
 exit #Remove this line when values are all setup
 
-server_ip="1.1.1.1" #At lease you need to change this value !
-server_port=8080
+server_ip="" #At lease you need to change this value !
+server_port=8888
 local_port=1080
 password=888888
 timeout=600
